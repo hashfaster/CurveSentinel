@@ -17,9 +17,9 @@ min_dashd_proto_version_with_sentinel_ping = 70207
 def get_dash_conf():
     home = os.environ.get('HOME')
 
-    dash_conf = os.path.join(home, ".dashcore/dash.conf")
+    dash_conf = os.path.join(home, ".curvecore/curve.conf")
     if sys.platform == 'darwin':
-        dash_conf = os.path.join(home, "Library/Application Support/DashCore/dash.conf")
+        dash_conf = os.path.join(home, "Library/Application Support/CurveCore/curve.conf")
 
     dash_conf = sentinel_cfg.get('dash_conf', dash_conf)
 
