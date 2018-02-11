@@ -1,8 +1,8 @@
-# Dash Sentinel
+# Curve Sentinel
 
-An all-powerful toolset for Dash.
+An all-powerful toolset for Curve.
 
-Sentinel is an autonomous agent for persisting, processing and automating Dash 2.0.0.0 governance objects and tasks, and for expanded functions in the upcoming Curve V3 release.
+Sentinel is an autonomous agent for persisting, processing and automating Curve 2.0.0.0 governance objects and tasks, and for expanded functions in the upcoming Curve V3 release.
 
 Sentinel is implemented as a Python application that binds to a local version 2.0.0.0 curved instance on each Curve V2 Masternode.
 
@@ -56,7 +56,7 @@ With all tests passing and crontab setup, Sentinel will stay in sync with curved
 
 An alternative (non-default) path to the `curve.conf` file can be specified in `sentinel.conf`:
 
-    dash_conf=/path/to/curve.conf
+    curve_conf=/path/to/curve.conf
 
 ## Troubleshooting
 

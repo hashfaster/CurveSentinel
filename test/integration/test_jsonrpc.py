@@ -8,12 +8,12 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'lib'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 import config
 
-from dashd import DashDaemon
-from dash_config import DashConfig
+from curved import CurveDaemon
+from curve_config import CurveConfig
 
 
-def test_dashd():
-    config_text = DashConfig.slurp_config_file(config.dash_conf)
+def test_curved():
+    config_text = CurveConfig.slurp_config_file(config.curve_conf)
     network = 'mainnet'
     is_testnet = False
     genesis_hash = u'00000c9048baaa666e4809285190c16b05ee2daa28bc00c3d40c00dce0b104f8'
@@ -23,15 +23,15 @@ def test_dashd():
             is_testnet = True
             genesis_hash = u'00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c'
 
-    creds = DashConfig.get_rpc_creds(config_text, network)
-    dashd = DashDaemon(**creds)
-    assert dashd.rpc_command is not None
+    creds = CurveConfig.get_rpc_creds(config_text, network)
+    curved = CurveDaemon(**creds)
+    assert curved.rpc_command is not None
 
-    assert hasattr(dashd, 'rpc_connection')
+    assert hasattr(curved, 'rpc_connection')
 
-    # Dash testnet block 0 hash == 00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c
+    # Curve testnet block 0 hash == 00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c
     # test commands without arguments
-    info = dashd.rpc_command('getinfo')
+    info = curved.rpc_command('getinfo')
     info_keys = [
         'blocks',
         'connections',
@@ -48,4 +48,4 @@ def test_dashd():
     assert info['testnet'] is is_testnet
 
     # test commands with args
-    assert dashd.rpc_command('getblockhash', 0) == genesis_hash
+    assert curved.rpc_command('getblockhash', 0) == genesis_hash
