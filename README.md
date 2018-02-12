@@ -30,7 +30,7 @@ Make sure the local Curve daemon running is at least version 2.0.0.0 (protocol 7
 
 Clone the Sentinel repo and install Python dependencies.
 
-    $ git clone https://github.com/Nillecram/sentinel.git && cd sentinel
+    $ git clone https://github.com/curvecoin/CurveSentinel.git && cd sentinel
     $ virtualenv ./venv
     $ ./venv/bin/pip install -r requirements.txt
 
@@ -40,9 +40,9 @@ Set up a crontab entry to call Sentinel every minute:
 
     $ crontab -e
 
-In the crontab editor, add the lines below, replacing '/home/YOURUSERNAME/sentinel' to the path where you cloned sentinel to:
+In the crontab editor, add the lines below, replacing '/home/YOURUSERNAME/CurveSentinel' to the path where you cloned sentinel to:
 
-    * * * * * cd /home/YOURUSERNAME/sentinel && ./venv/bin/python bin/sentinel.py >/dev/null 2>&1
+    * * * * * cd /home/YOURUSERNAME/CurveSentinel && ./venv/bin/python bin/sentinel.py >/dev/null 2>&1
 
 ### 4. Test the Configuration
 
