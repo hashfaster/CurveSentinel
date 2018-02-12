@@ -30,7 +30,7 @@ Make sure the local Curve daemon running is at least version 2.0.0.0 (protocol 7
 
 Clone the Sentinel repo and install Python dependencies.
 
-    $ git clone https://github.com/curvecoin/CurveSentinel.git && cd sentinel
+    $ git clone https://github.com/curvecoin/CurveSentinel.git && cd CurveSentinel
     $ virtualenv ./venv
     $ ./venv/bin/pip install -r requirements.txt
 
