@@ -3,27 +3,27 @@
 """
 import sys
 import os
-from curve_config import CurveConfig
+from eden_config import edenConfig
 
 default_sentinel_config = os.path.normpath(
     os.path.join(os.path.dirname(__file__), '../sentinel.conf')
 )
 sentinel_config_file = os.environ.get('SENTINEL_CONFIG', default_sentinel_config)
-sentinel_cfg = CurveConfig.tokenize(sentinel_config_file)
+sentinel_cfg = edenConfig.tokenize(sentinel_config_file)
 sentinel_version = "1.1.0"
-min_curved_proto_version_with_sentinel_ping = 70207
+min_edend_proto_version_with_sentinel_ping = 70207
 
 
-def get_curve_conf():
+def get_eden_conf():
     home = os.environ.get('HOME')
 
-    curve_conf = os.path.join(home, ".curvecore/curve.conf")
+    eden_conf = os.path.join(home, ".eden/eden.conf")
     if sys.platform == 'darwin':
-        curve_conf = os.path.join(home, "Library/Application Support/CurveCore/curve.conf")
+        eden_conf = os.path.join(home, "Library/Application Support/Eden/eden.conf")
 
-    curve_conf = sentinel_cfg.get('curve_conf', curve_conf)
+    eden_conf = sentinel_cfg.get('eden_conf', eden_conf)
 
-    return curve_conf
+    return eden_conf
 
 
 def get_network():
@@ -79,6 +79,6 @@ def get_db_conn():
     return db
 
 
-curve_conf = get_curve_conf()
+eden_conf = get_eden_conf()
 network = get_network()
 db = get_db_conn()

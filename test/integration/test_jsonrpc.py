@@ -8,30 +8,30 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'lib'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 import config
 
-from curved import CurveDaemon
-from curve_config import CurveConfig
+from edend import edenDaemon
+from eden_config import edenConfig
 
 
-def test_curved():
-    config_text = CurveConfig.slurp_config_file(config.curve_conf)
+def test_edend():
+    config_text = edenConfig.slurp_config_file(config.eden_conf)
     network = 'mainnet'
     is_testnet = False
-    genesis_hash = u'00000c9048baaa666e4809285190c16b05ee2daa28bc00c3d40c00dce0b104f8'
+    genesis_hash = u'6414045d49281b2c6339a27b767238f20571ecc88d4e3359ed94c4bb23116aeb'
     for line in config_text.split("\n"):
         if line.startswith('testnet=1'):
             network = 'testnet'
             is_testnet = True
             genesis_hash = u'00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c'
 
-    creds = CurveConfig.get_rpc_creds(config_text, network)
-    curved = CurveDaemon(**creds)
-    assert curved.rpc_command is not None
+    creds = edenConfig.get_rpc_creds(config_text, network)
+    edend = edenDaemon(**creds)
+    assert edend.rpc_command is not None
 
-    assert hasattr(curved, 'rpc_connection')
+    assert hasattr(edend, 'rpc_connection')
 
-    # Curve testnet block 0 hash == 00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c
+    # eden testnet block 0 hash == 00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c
     # test commands without arguments
-    info = curved.rpc_command('getinfo')
+    info = edend.rpc_command('getinfo')
     info_keys = [
         'blocks',
         'connections',
@@ -48,4 +48,4 @@ def test_curved():
     assert info['testnet'] is is_testnet
 
     # test commands with args
-    assert curved.rpc_command('getblockhash', 0) == genesis_hash
+    assert edend.rpc_command('getblockhash', 0) == genesis_hash

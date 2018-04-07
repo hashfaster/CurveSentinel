@@ -9,17 +9,17 @@ import config
 from models import Superblock, Proposal, GovernanceObject, Setting, Signal, Vote, Outcome, Watchdog
 from models import VoteSignals, VoteOutcomes
 from peewee import PeeweeException  # , OperationalError, IntegrityError
-from curved import CurveDaemon
+from edend import edendaemon
 import curvelib
 from decimal import Decimal
-curved = CurveDaemon.from_curve_conf(config.curve_conf)
+edend = edendaemon.from_eden_conf(config.eden_conf)
 import misc
 # ==============================================================================
 # do stuff here
 
 pr = Proposal(
     name='proposal7',
-    url='https://curvecentral.com/proposal7',
+    url='https://edencentral.com/proposal7',
     payment_address='yTC62huR4YQEPn9AJHjnQxxreHSbgAoatV',
     payment_amount=39.23,
     start_epoch=1483250400,
@@ -33,13 +33,13 @@ pr = Proposal(
 # )
 
 
-# TODO: make this a test, mock 'curved' and tie a test block height to a
+# TODO: make this a test, mock 'edend' and tie a test block height to a
 # timestamp, ensure only unit testing a within_window method
 #
 # also, create the `within_window` or similar method & use that.
 #
 bh = 131112
-bh_epoch = curved.block_height_to_epoch(bh)
+bh_epoch = edend.block_height_to_epoch(bh)
 
 fudge = 72000
 window_start = 1483689082 - fudge
@@ -56,7 +56,7 @@ else:
     print("Within window, we're good!")
 
 # pdb.set_trace()
-# curved.get_object_list()
+# edend.get_object_list()
 # ==============================================================================
 # pdb.set_trace()
 1

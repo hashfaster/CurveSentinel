@@ -6,13 +6,13 @@ os.environ['SENTINEL_CONFIG'] = os.path.normpath(os.path.join(os.path.dirname(__
 os.environ['SENTINEL_ENV'] = 'test'
 sys.path.append(os.path.normpath(os.path.join(os.path.dirname(__file__), '../../lib')))
 import config
-from curve_config import CurveConfig
+from eden_config import EdenConfig
 
 
 @pytest.fixture
-def curve_conf(**kwargs):
+def eden_conf(**kwargs):
     defaults = {
-        'rpcuser': 'curverpc',
+        'rpcuser': 'edenrpc',
         'rpcpassword': 'EwJeV3fZTyTVozdECF627BkBMnNDwQaVLakG3A4wXYyk',
         'rpcport': 29241,
     }
@@ -34,35 +34,35 @@ rpcport={rpcport}
 
 
 def test_get_rpc_creds():
-    curve_config = curve_conf()
-    creds = CurveConfig.get_rpc_creds(curve_config, 'testnet')
+    eden_config = eden_conf()
+    creds = edenConfig.get_rpc_creds(eden_config, 'testnet')
 
     for key in ('user', 'password', 'port'):
         assert key in creds
-    assert creds.get('user') == 'curverpc'
+    assert creds.get('user') == 'edenrpc'
     assert creds.get('password') == 'EwJeV3fZTyTVozdECF627BkBMnNDwQaVLakG3A4wXYyk'
     assert creds.get('port') == 29241
 
-    curve_config = curve_conf(rpcpassword='s00pers33kr1t', rpcport=8000)
-    creds = CurveConfig.get_rpc_creds(curve_config, 'testnet')
+    eden_config = eden_conf(rpcpassword='s00pers33kr1t', rpcport=8000)
+    creds = edenConfig.get_rpc_creds(eden_config, 'testnet')
 
     for key in ('user', 'password', 'port'):
         assert key in creds
-    assert creds.get('user') == 'curverpc'
+    assert creds.get('user') == 'edenrpc'
     assert creds.get('password') == 's00pers33kr1t'
     assert creds.get('port') == 8000
 
-    no_port_specified = re.sub('\nrpcport=.*?\n', '\n', curve_conf(), re.M)
-    creds = CurveConfig.get_rpc_creds(no_port_specified, 'testnet')
+    no_port_specified = re.sub('\nrpcport=.*?\n', '\n', eden_conf(), re.M)
+    creds = edenConfig.get_rpc_creds(no_port_specified, 'testnet')
 
     for key in ('user', 'password', 'port'):
         assert key in creds
-    assert creds.get('user') == 'curverpc'
+    assert creds.get('user') == 'edenrpc'
     assert creds.get('password') == 'EwJeV3fZTyTVozdECF627BkBMnNDwQaVLakG3A4wXYyk'
-    assert creds.get('port') == 18988
+    assert creds.get('port') == 13595
 
 
-# ensure curve network (mainnet, testnet) matches that specified in config
-# requires running curved on whatever port specified...
+# ensure eden network (mainnet, testnet) matches that specified in config
+# requires running edend on whatever port specified...
 #
-# This is more of a curved/jsonrpc test than a config test...
+# This is more of a edend/jsonrpc test than a config test...

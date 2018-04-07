@@ -7,11 +7,11 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lib'))
 from misc import printdbg
 
 
-class CurveConfig():
+class edenConfig():
 
     @classmethod
     def slurp_config_file(self, filename):
-        # read curve.conf config but skip commented lines
+        # read eden.conf config but skip commented lines
         f = io.open(filename)
         lines = []
         for line in f:
@@ -20,27 +20,27 @@ class CurveConfig():
             lines.append(line)
         f.close()
 
-        # data is curve.conf without commented lines
+        # data is eden.conf without commented lines
         data = ''.join(lines)
 
         return data
 
     @classmethod
     def get_rpc_creds(self, data, network='mainnet'):
-        # get rpc info from curve.conf
+        # get rpc info from eden.conf
         match = re.findall(r'rpc(user|password|port)=(.*?)$', data, re.MULTILINE)
 
         # python >= 2.7
         creds = {key: value for (key, value) in match}
 
-        # standard Curve defaults...
-        default_port = 8988 if (network == 'mainnet') else 18988
+        # standard eden defaults...
+        default_port = 3595 if (network == 'mainnet') else 18988
 
-        # use default port for network if not specified in curve.conf
+        # use default port for network if not specified in eden.conf
         if not ('port' in creds):
             creds[u'port'] = default_port
 
-        # convert to an int if taken from curve.conf
+        # convert to an int if taken from eden.conf
         creds[u'port'] = int(creds[u'port'])
 
         # return a dictionary with RPC credential key, value pairs
